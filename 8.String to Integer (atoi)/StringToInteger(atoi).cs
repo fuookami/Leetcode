@@ -2,31 +2,29 @@ using System;
 
 public class Solution {
     public int MyAtoi(string str) {
-        str = str.Trim();
+        int ret = 0;
+        int i = 0;
         bool negative = false;
-        int index = 0;
-        if (str.Length == 0) {
+        for (; i != str.Length && str[i] == ' '; ++i);
+        if (i == str.Length) {
             return 0;
         }
-        if (str[0] == '-') {
+        if (str[i] == '-') {
             negative = true;
-            index = 1;
-        } else if (str[0] == '+') {
-            index = 1;
+            ++i;
+        } else if (str[i] == '+') {
+            ++i;
         }
-        int temp = 0;
+
         try {
             checked {
-                foreach (var ch in str.Substring(index)) {
-                    if (!Char.IsDigit(ch)) {
-                        return negative ? -temp : temp;
-                    }
-                    temp = temp * 10 + (ch - '0');
+                for (; i != str.Length && Char.IsDigit(str[i]); ++i) {
+                    ret = ret * 10 + (str[i] - '0');
                 }
             }
         } catch (OverflowException) {
             return negative ? Int32.MinValue : Int32.MaxValue;
         }
-        return negative ? -temp : temp;
+        return negative ? -ret : ret;
     }
 }
