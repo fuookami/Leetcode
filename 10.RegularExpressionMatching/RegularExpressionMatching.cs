@@ -61,21 +61,6 @@ public class Solution
         }
     }
 
-    public class NodeComparer : IEqualityComparer<Node>
-    {
-        public bool Equals(Node lhs, Node rhs)
-        {
-            return lhs.NodeType == rhs.NodeType
-                && lhs.Letter == rhs.Letter
-                && lhs.Repeating == rhs.Repeating;
-        }
-
-        public int GetHashCode(Node node)
-        {
-            return (node.Letter << 8) ^ (node.Repeating ? 1 : 0);
-        }
-    }
-
     public static List<Node> AnalyzePatternNode(string p)
     {
         List<Node> ret = new List<Node>();
